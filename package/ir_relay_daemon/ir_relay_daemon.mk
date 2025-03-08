@@ -13,8 +13,8 @@ IR_RELAY_DAEMON_DEPENDENCIES = boost protobuf libgpiod2
 define IR_RELAY_DAEMON_INSTALL_INIT_SYSV
 	$(INSTALL) -D -m 755 $(IR_RELAY_DAEMON_PKGDIR)/S99IrRelayDaemon \
 		$(TARGET_DIR)/etc/init.d/S99IrRelayDaemon
-	$(INSTALL) -D -m 644 $(IR_RELAY_DAEMON_PKGDIR)/IrRelayDaemon.defaults \
-		$(TARGET_DIR)/etc/default/IrRelayDaemon
+	$(INSTALL) -D -m 755 $(IR_RELAY_DAEMON_PKGDIR)/startIrRelayDaemon.sh \
+		$(TARGET_DIR)/etc/IrRelayDaemon/startIrRelayDaemon.sh
 endef
 
 $(eval $(cmake-package))

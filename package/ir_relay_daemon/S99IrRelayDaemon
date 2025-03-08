@@ -1,15 +1,11 @@
 #!/bin/sh
 
 DAEMON="IrRelayDaemon"
-PIDFILE="/var/run/$DAEMON.pid"
-
-[ -r "/etc/default/$DAEMON" ] && . "/etc/default/$DAEMON"
+SCRIPT="/etc/$DAEMON/start$DAEMON.sh"
 
 start() {
         printf 'Starting %s: ' "$DAEMON"
-        start-stop-daemon --start --background --make-pidfile \
-                --pidfile "$PIDFILE" --exec "/bin/$DAEMON" \
-                -- --name "$RELAY_NAME" --description "$RELAY_DESCRIPTION"
+        start-stop-daemon --start --background --startas "$SCRIPT"
         status=$?
         if [ "$status" -eq 0 ]; then
                 echo "OK"
@@ -21,19 +17,13 @@ start() {
 
 stop() {
         printf 'Stopping %s: ' "$DAEMON"
-        start-stop-daemon --stop --pidfile "$PIDFILE" --exec "/bin/$DAEMON"
+        start-stop-daemon --stop --exec "/bin/$DAEMON"
         status=$?
         if [ "$status" -eq 0 ]; then
                 echo "OK"
         else
                 echo "FAIL"
-                return "$status"
         fi
-        while start-stop-daemon --stop --test --quiet --pidfile "$PIDFILE" \
-                --exec "/bin/$DAEMON"; do
-                sleep 0.1
-        done
-        rm -f "$PIDFILE"
         return "$status"
 }
 
