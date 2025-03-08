@@ -8,8 +8,8 @@ PIDFILE="/var/run/$DAEMON.pid"
 start() {
         printf 'Starting %s: ' "$DAEMON"
         start-stop-daemon --start --background --make-pidfile \
-                --pidfile "$PIDFILE" --exec "/sbin/$DAEMON" \
-                -- -n $SYSLOGD_ARGS
+                --pidfile "$PIDFILE" --exec "/bin/$DAEMON" \
+                -- --name "$RELAY_NAME" --description "$RELAY_DESCRIPTION"
         status=$?
         if [ "$status" -eq 0 ]; then
                 echo "OK"
@@ -21,7 +21,7 @@ start() {
 
 stop() {
         printf 'Stopping %s: ' "$DAEMON"
-        start-stop-daemon --stop --pidfile "$PIDFILE" --exec "/sbin/$DAEMON"
+        start-stop-daemon --stop --pidfile "$PIDFILE" --exec "/bin/$DAEMON"
         status=$?
         if [ "$status" -eq 0 ]; then
                 echo "OK"
@@ -30,7 +30,7 @@ stop() {
                 return "$status"
         fi
         while start-stop-daemon --stop --test --quiet --pidfile "$PIDFILE" \
-                --exec "/sbin/$DAEMON"; do
+                --exec "/bin/$DAEMON"; do
                 sleep 0.1
         done
         rm -f "$PIDFILE"
@@ -46,7 +46,6 @@ case "$1" in
         start|stop|restart)
                 "$1";;
         reload)
-                # Restart, since there is no true "reload" feature.
                 restart;;
         *)
                 echo "Usage: $0 {start|stop|restart|reload}"
