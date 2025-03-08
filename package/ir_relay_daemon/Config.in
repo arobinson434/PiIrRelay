@@ -1,0 +1,11 @@
+config BR2_PACKAGE_IR_RELAY_DAEMON
+	bool "ir_relay_daemon"
+	depends on BR2_arm
+	select BR2_PACKAGE_BOOST
+	select BR2_PACKAGE_BOOST_PROGRAM_OPTIONS
+	select BR2_PACKAGE_PROTOBUF
+	help
+	  A daeomon which relays IR commands to and from the
+	  PiMote phone application.
+
+	  https://github.com/arobinson434/IrRelayDaemon

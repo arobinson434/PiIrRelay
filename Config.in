@@ -1,0 +1,1 @@
+source "$BR2_EXTERNAL_PiIrRelay_PATH/package/ir_relay_daemon/Config.in"
