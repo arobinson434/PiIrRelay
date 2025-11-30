@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-IR_RELAY_DAEMON_VERSION = 1.0.1
+IR_RELAY_DAEMON_VERSION = 2.0.0
 IR_RELAY_DAEMON_SOURCE = v$(IR_RELAY_DAEMON_VERSION).tar.gz
 IR_RELAY_DAEMON_SITE = https://github.com/arobinson434/IrRelayDaemon/archive/refs/tags
 IR_RELAY_DAEMON_CONF_OPTS = -DCMAKE_INSTALL_PREFIX=/
