@@ -43,5 +43,8 @@ your buildroot tree:
 make BR2_EXTERNAL=<path_to_this_project> rpiz2w_piirrelay_defconfig
 ```
 
+Note: I have only used this with the 2024.11.2 release of buildroot, so that's
+what I recommend using.
+
 After that, you should be good to go! Just run 'make' to build your image.
 
